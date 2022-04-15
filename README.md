@@ -16,20 +16,20 @@ Iam using randomuser api for develop this project
 
   #### List Query Api
 
-  - `page=1` for pagination
-  - `results=10` for total data per page
-  - `pageSize=10` for total data per page
-  - `keyword="test"` for searching
+  - `?page=1` for pagination
+  - `?results=10` for total data per page
+  - `?pageSize=10` for total data per page
+  - `?keyword="test"` for searching
 
-  ##### All query run well in network, but from documentation randomuserapi , no have query like (`-pageSize`, `-keyword`)
+  ##### All query run well in network, but from documentation randomuserapi , no have query like (`?pageSize`, `?keyword`)
 
   #### For total page i give default value 10, because from response randomuserapi in Object Info no have key totalPage
 
 ### Feature
 
-- Search by keyword
-- Filer by gender (`Female` or `Male`)
-- Sort by date (`ASC` or `DESC`)
+- Search by keyword , default value (`''`)
+- Filer by gender (`Female` or `Male`) , default value (`All`)
+- Sort by date (`ASC` or `DESC`), default value (`asc`)
 
 ### Styling
 
