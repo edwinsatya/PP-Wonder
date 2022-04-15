@@ -69,7 +69,6 @@ function App() {
 
         return fb - fa;
       });
-      console.log(currentDataTable);
       setDataTable(currentDataTable);
     }
     // eslint-disable-next-line
