@@ -51,7 +51,7 @@
 
 #### 3. Give an example of how to implement inheritance in ES2015 using extends and super
 
-    class Car = {
+    class Car {
         constructor(brand) {
             this.carname = brand
         }

@@ -13,6 +13,21 @@ const TableComponent = ({ tableRows, dataTable, onClick, sortDirection }) => {
     return `${first} ${last}`;
   };
 
+  const getDateAndTime = (date) => {
+    const newDate = new Date(date);
+    return `${
+      newDate.getDate() < 10 ? "0" + newDate.getDate() : newDate.getDate()
+    }-${
+      newDate.getMonth() < 10 ? "0" + newDate.getMonth() : newDate.getMonth()
+    }-${newDate.getFullYear()} ${
+      newDate.getHours() < 10 ? "0" + newDate.getHours() : newDate.getHours()
+    } : ${
+      newDate.getMinutes() < 10
+        ? "0" + newDate.getMinutes()
+        : newDate.getMinutes()
+    }`;
+  };
+
   return (
     <TableContainer component={Paper}>
       <Table sx={{ minWidth: 650 }} aria-label="simple table">
@@ -43,7 +58,9 @@ const TableComponent = ({ tableRows, dataTable, onClick, sortDirection }) => {
               <TableCell align="right">{getFullName(row.name)}</TableCell>
               <TableCell align="right">{row.email}</TableCell>
               <TableCell align="right">{row.gender}</TableCell>
-              <TableCell align="right">{row.registered.date}</TableCell>
+              <TableCell align="right">
+                {getDateAndTime(row.registered.date)}
+              </TableCell>
             </TableRow>
           ))}
         </TableBody>
