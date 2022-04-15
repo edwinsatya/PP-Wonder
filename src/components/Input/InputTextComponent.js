@@ -1,4 +1,4 @@
-import { TextField } from "@mui/material";
+import { MenuItem, TextField } from "@mui/material";
 import { styled } from "@mui/material/styles";
 
 const CustomTextField = styled(TextField)`
@@ -6,7 +6,17 @@ const CustomTextField = styled(TextField)`
   width: 10rem;
 `;
 
-const InputTextComponent = ({ marginType, variant, size, label, sx }) => {
+const InputTextComponent = ({
+  marginType,
+  variant,
+  size,
+  label,
+  sx,
+  select,
+  items,
+  value,
+  onChange,
+}) => {
   return (
     <CustomTextField
       margin={marginType}
@@ -14,7 +24,17 @@ const InputTextComponent = ({ marginType, variant, size, label, sx }) => {
       size={size}
       label={label}
       sx={sx}
-    ></CustomTextField>
+      select={select}
+      value={value}
+      onChange={onChange}
+    >
+      {items &&
+        items.map((item, idx) => (
+          <MenuItem key={idx} value={item.value}>
+            {item.label}
+          </MenuItem>
+        ))}
+    </CustomTextField>
   );
 };
 
