@@ -27,6 +27,8 @@ Iam using randomuser api for develop this project
 
 ### Feature
 
+- Search by keyword
+- Filer by gender (`Female` or `Male`)
 - Sort by date (`ASC` or `DESC`)
 
 ### Styling
