@@ -5,7 +5,6 @@ const getRandomUser = async (page, gender, keyword) => {
   ${gender === "all" ? "" : `&gender=${gender}`}&results=10
   ${keyword ? `&keyword=${keyword}` : ""}
   `;
-  console.log(query, "query");
   const response = await fetch(`https://randomuser.me/api/?${query}`);
   return response.json();
 };

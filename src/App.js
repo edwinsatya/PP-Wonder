@@ -28,27 +28,63 @@ function App() {
 
   const [dataTable, setDataTable] = useState([]);
   const [page, setPage] = useState(1);
+  const [totalPage, setTotalPage] = useState(10);
   const [gender, setGender] = useState("all");
   const [keyword, setKeyword] = useState("");
+  const [internalKeyword, setInternalKeyword] = useState("");
+  const [sortDirection, setSortDirection] = useState("asc");
 
   const handleSearchKeyword = async () => {
-    const { results, info } = await getRandomUser(page, gender, keyword);
-    console.log(results);
-    console.log(info);
-    setDataTable(results);
+    setInternalKeyword(keyword);
+  };
+
+  const handleResetFilter = () => {
+    setPage(1);
+    setGender("all");
+    setKeyword("");
+    setInternalKeyword("");
+    setSortDirection("asc");
+  };
+
+  const handleSortTable = (e) => {
+    const newSort = `${sortDirection === "asc" ? "desc" : "asc"}`;
+    setSortDirection(newSort);
   };
 
   useEffect(() => {
+    const currentDataTable = [...dataTable];
+
+    if (sortDirection === "asc") {
+      currentDataTable.sort((a, b) => {
+        let fa = new Date(a.registered.date);
+        let fb = new Date(b.registered.date);
+
+        return fa - fb;
+      });
+      setDataTable(currentDataTable);
+    } else {
+      currentDataTable.sort((a, b) => {
+        let fa = new Date(a.registered.date);
+        let fb = new Date(b.registered.date);
+
+        return fb - fa;
+      });
+      console.log(currentDataTable);
+      setDataTable(currentDataTable);
+    }
+    // eslint-disable-next-line
+  }, [sortDirection]);
+
+  useEffect(() => {
     const fetchData = async () => {
-      const { results, info } = await getRandomUser(page, gender, keyword);
-      console.log(results);
-      console.log(info);
+      const { results } = await getRandomUser(page, gender, internalKeyword);
+
       setDataTable(results);
+      setTotalPage(10); //hardcode totalpage=10 , cause in object info no have key for setTotalPage
     };
 
     fetchData().catch((err) => console.log(err));
-    // eslint-disable-next-line
-  }, [page, gender]);
+  }, [page, gender, internalKeyword]);
 
   return (
     <div className="App">
@@ -98,17 +134,23 @@ function App() {
             sx={{
               marginLeft: "1rem",
             }}
+            onClick={handleResetFilter}
           />
         </Box>
         <div>
-          <TableComponent tableRows={tableRows} dataTable={dataTable} />
+          <TableComponent
+            tableRows={tableRows}
+            dataTable={dataTable}
+            onClick={handleSortTable}
+            sortDirection={sortDirection}
+          />
           <PaginationComponent
             sx={{
               display: "flex",
               justifyContent: "end",
               marginTop: "1rem",
             }}
-            count={10}
+            count={totalPage}
             variant="outlined"
             shape="rounded"
             page={page}

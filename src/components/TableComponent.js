@@ -6,8 +6,9 @@ import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
+import TableSortLabel from "@mui/material/TableSortLabel";
 
-const TableComponent = ({ tableRows, dataTable }) => {
+const TableComponent = ({ tableRows, dataTable, onClick, sortDirection }) => {
   const getFullName = ({ first, last }) => {
     return `${first} ${last}`;
   };
@@ -19,7 +20,13 @@ const TableComponent = ({ tableRows, dataTable }) => {
           <TableRow>
             {tableRows.map((row, idx) => (
               <TableCell key={idx} align={idx > 0 ? "right" : "left"}>
-                {row}
+                <TableSortLabel
+                  active={true}
+                  direction={sortDirection}
+                  onClick={() => onClick(row)}
+                >
+                  {row}
+                </TableSortLabel>
               </TableCell>
             ))}
           </TableRow>
@@ -31,7 +38,7 @@ const TableComponent = ({ tableRows, dataTable }) => {
               sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
             >
               <TableCell component="th" scope="row">
-                {row.login.username}
+                {row.login.username}s
               </TableCell>
               <TableCell align="right">{getFullName(row.name)}</TableCell>
               <TableCell align="right">{row.email}</TableCell>
